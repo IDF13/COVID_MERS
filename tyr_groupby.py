@@ -73,3 +73,6 @@ for key, group in grouped6:
 grouped6.describe().to_csv('/content/drive/MyDrive/ML Deep/group.csv',encoding='cp949')
 
 grouped6.describe()
+
+
+"""클래스를 이용해 보도록 하자!!!"""
