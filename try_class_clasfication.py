@@ -9,49 +9,6 @@ COVID_MERSS = pd.read_csv(path + "DATA_SSC_CORONA_MERS.csv")
 covid_merss = pd.DataFrame(COVID_MERSS)
 covid_merss
 
-# 모든 경우의 수를 고려한 변수를 분류하는 클래스 정의 --> 경우의 수가 많아져서 다른 방안 고민
-'''
-class Classification():
-  def __init__(self,name, data):
-    self.name = name
-    self.data = data
-   
-    
- 
-  def split_factor(self,factor_name, sex='전부', age='전연령', year='3년', month='3개월'):
-    self.factor_name = factor_name
-    self.sex = sex
-    self.age = age
-    self.year = year
-    self.month = month 
-  
-    if self.sex == '전부':
-      self.name = [row for row in self.data.values if row[0] == self.factor_name and row[2] == self.age and row[4] == self.year and row[5] == self.month]
-      self.name = pd.DataFrame(self.name, columns=['업종','성별','나이','소비 합계','연도','월'])
-
-    elif self.age == '전연령':
-      self.name = [row for row in self.data.values if row[0] == self.factor_name and row[1] == self.sex and row[4] == self.year and row[5] == self.month]
-      self.name = pd.DataFrame(self.name, columns=['업종','성별','나이','소비 합계','연도','월'])
-
-    elif self.year == '3년':
-      self.name = [row for row in self.data.values if row[0] == self.factor_name and row[1] == self.sex and row[2] == self.age and row[5] == self.month]
-      self.name = pd.DataFrame(self.name, columns=['업종','성별','나이','소비 합계','연도','월'])
-
-    elif self.month == '3개월':
-      self.name = [row for row in self.data.values if row[0] == self.factor_name and row[1] == self.sex and row[2] == self.age and row[4] == self.year]
-      self.name = pd.DataFrame(self.name, columns=['업종','성별','나이','소비 합계','연도','월'])
- 
-    elif self.sex == '전부' and self.age == '전연령' and self.year == '3년' and self.month == '3개월':
-      self.name = [row for row in self.data.values if row[0] == self.factor_name]
-      self.name = pd.DataFrame(self.name, columns=['업종','성별','나이','소비 합계','연도','월'])
-
-    else: 
-      self.name = [row for row in self.data.values if row[0] == self.factor_name and row[1] == self.sex and row[2] == self.age and row[4] == self.year and row[5] == self.month]
-      self.name = pd.DataFrame(self.name, columns=['업종','성별','나이','소비 합계','연도','월'])    
-
-    
-    return self.name
-    '''
 
 # 사용자가 입력한 변수만 통제하는 클래스 만들기 --> inpurt 값만 변수 통제에 사용할 수 있도록 하는 함수
 class Classification():
