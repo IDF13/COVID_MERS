@@ -75,4 +75,6 @@ grouped6.describe().to_csv('/content/drive/MyDrive/ML Deep/group.csv',encoding='
 grouped6.describe()
 
 
-"""클래스를 이용해 보도록 하자!!!"""
+# 데이터 프레임을 분류하는 함수를 알아보았다.
+# 하지만 시각화 하는데 어려움을 느껴 
+# 직접 클래스를 이용해 분류기를 만들어 볼 생각이다.
