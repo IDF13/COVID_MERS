@@ -1,3 +1,6 @@
+# 사용자가 변수를 인풋한 값이 조건부로 발동하여 데이터프레임이 분류된다.
+# 단 입력하지 않은 변수는 데이터에 조회되지 않는다.
+
 import pandas as pd
 import numpy as np
 import seaborn as sns
