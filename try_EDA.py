@@ -39,10 +39,11 @@ print('범위 :',len(age_category))
 date_info = df.소비일자.values
 type(date_info)
 
-
-
+# 데이터 정보를 텍스트로 받았을 경우 데이터 타입 확인
 date_infomation = [str(row) for row in date_info]
 type(date_infomation[5])
+
+
 df['소비일자'] = date_infomation
 
 df['월별'] = pd.to_numeric(df['소비일자'].str[5])
