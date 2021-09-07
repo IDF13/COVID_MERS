@@ -79,8 +79,10 @@ class Classification():
 
     a = self.data[key_list] == values_list
     b = self.data[a]
+    c = b.dropna(axis = 1, how='all')
+    d = c.dropna(axis = 0, how='any')
 
-    return b
+    return d
 
 # 연도별 정리하기 
 cov = covid_merss.소비일자.values
@@ -91,42 +93,8 @@ covid_merss['월별'] = covid_merss['소비일자'].str[5]
 covid_merss = covid_merss.drop('소비일자', axis=1)
 covid_merss
 
+# 클래스 적용
 category = Classification(covid_merss)
 data = category.split_factor(factor_name='요식/유흥',sex=False, age='30대',year='2019',month=False)
 data
 
-# 조합 경우의 수 구하기 및 클래스 확인
-lists = ['소비업종','성별','연령대']
-number = 2
-a = []
-
-for i in itertools.combinations(lists, number):
-  b = list(i)
-  a.append(b)
-print(a)
-
-c = [covid_merss[row] for row in a]
-e = covid_merss[a[2]]
-e
-
-# 클래스 함수 확인용
-factor_name = '요식/유흥'
-sex = False
-age = '30대'
-year = '2019'
-month = False
-start = {'소비업종':factor_name, "성별":sex, '연령대':age, "연도":year, '월별':month}
-values_list = []
-key_list = []
-
-for key, values in start.items():
-  if values == False:
-    continue
-  else:
-    key_list.append(key)
-    values_list.append(values)
-
-a = covid_merss[key_list] == values_list
-
-b = covid_merss[a]
-b
