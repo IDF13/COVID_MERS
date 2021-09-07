@@ -35,11 +35,13 @@ class Classification():
         values_list.append(values)
 
     a = self.data[key_list] == values_list
-    b = self.data[a]
-    c = b.dropna(axis = 1, how='all')
-    d = c.dropna(axis = 0, how='any')
+    b = self.data[a]    
+    c = b.dropna(axis=1,how='all') 
+    d = c.dropna(axis=0, how='any')
+    result = pd.concat([d,self.data.소비건수합계],axis=1, join='inner')
 
-    return d
+
+    return result
 
 # 연도별 정리하기 
 cov = covid_merss.소비일자.values
