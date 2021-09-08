@@ -20,7 +20,7 @@ df = pd.DataFrame(pd.read_csv(path + name))
 df.head()
 
 # 연도별 정리하기 
-# date_info = df.소비일자.values
+date_info = df.소비일자.values
 type(date_info[1])
 
 date_infomation = [str(row) for row in date_info]
@@ -36,6 +36,7 @@ consum_list
 
 # groupby 로 원하는 변수를 조건으로 주어 추출
 # 월별 소비는 의미가 없음으로 두고 합친다
+
 data_group = df.groupby([df['소비업종'],df['성별'],df['연령대'],df['연도']], as_index=False).sum()
 
 # 파생변수 추가 
@@ -56,39 +57,61 @@ m = data_group[data_group['소비업종']=='편의점']
 o = data_group[data_group['소비업종']=='할인점/마트']
 
 # 그룹화된 막대 그래프 그리기
-class group_bar(self):
-  
-  def group(self, data):
-    
-      width = 0.4
-      left_x = []
-      middle_x = []
-      right_x = []
-      for position in data.values:
-        if position[3] == '2015':
-          left_x.append(position[4])
-        elif position[3] == '2019':
-          middle_x.append(position[4])
-        else:
-          right_x.append(position[4])
-      x = [1,2,3,4,5]
-      le = []
-      mi = []
-      ri =[]
-      for row in x:
-        le.append(row-width/2)
-        mi.append(row)
-        ri.append(row+width/2)
+class group_bar_year():    
 
-  def bar(self,x_name, y_name):
-    # 연령대
+  def group(self,data,sex,x_name,y_name):
+        
+    width = 0.4
+    left_x = []
+    middle_x = []
+    right_x = []
+    for position in data.values:
+      if position[3] == '2015' and position[1] == sex:
+        left_x.append(position[4])
+      elif position[3] == '2019' and position[1] == sex:
+        middle_x.append(position[4])
+      elif position[3] == '2020' and position[1] == sex:
+        right_x.append(position[4])
+        
+    x = [1,2,3,4,5]
+    le = []
+    mi = []
+    ri =[]
+    for row in x:
+      le.append(row-width/2)
+      mi.append(row)
+      ri.append(row+width/2)
+
     age_category = sorted(set(data['연령대']))
     plt.rcParams['font.family']= 'NanumGothic'
-    plt.bar(self.le,self.left_x, color='r' ,width=width,label='2015')
-    plt.bar(self.mi,self.middle_x,color='g',width=width,label='2019')
-    plt.bar(self.ri,self.right_x,color='b',width=width,label='2020')
+    plt.bar(le,left_x, color='r' ,width=width,label='2015')
+    plt.bar(mi,middle_x,color='g',width=width,label='2019')
+    plt.bar(ri,right_x,color='b',width=width,label='2020')
     plt.legend(loc='up right',ncol=1)
-    plt.xticks(self.mi, age_category, fontsize=14, rotation=0)
+    plt.xticks(mi, age_category, fontsize=14, rotation=0)
     plt.xlabel(x_name)
     plt.ylabel(y_name)
     plt.show()
+
+# Commented out IPython magic to ensure Python compatibility.
+!apt -qq -y install fonts-nanum > /dev/null
+ 
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+ 
+fontpath = '/usr/share/fonts/truetype/nanum/NanumBarunGothic.ttf'
+font = fm.FontProperties(fname=fontpath, size=10)
+fm._rebuild()
+ 
+# 그래프에 retina display 적용
+# %config InlineBackend.figure_format = 'retina'
+ 
+# Colab 의 한글 폰트 설정
+plt.rc('font', family='NanumBarunGothic')
+
+a_group = group_bar_year()
+
+a_group.group(data=a, sex='남성',x_name='가전/가구',y_name='남성 스포츠/문화 소비건수')
+a_group.group(data=a, sex='여성',x_name='가전/가구',y_name='여성 스포츠/문화 소비건수')
+a_group.group(data=b, sex='남성',x_name='가정생활/서비스',y_name='남성 가정생활/서비스 소비건수')
+a_group.group(data=b, sex='여성',x_name='가정생활/서비스',y_name='여성 가정생활/서비스 소비건수')
